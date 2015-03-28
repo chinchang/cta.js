@@ -1,0 +1,15 @@
+{
+	"name": "cta.js",
+	"version": "0.0.1",
+	"main": "cta.min.js",
+	"author": "Kushagra Gour",
+	"ignore": [
+		"CONTRIBUTING.md",
+		"Gruntfile.js"
+	],
+	"keywords": [
+		"animation",
+		"transition",
+		"ux"
+	]
+}

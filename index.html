@@ -1,0 +1,324 @@
+<!doctype html>
+<html class="no-js" lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>cta.js - Animate anything onto anything!</title>
+		<meta name="author" content="Kushagra Gour">
+		<meta name="description" content="Animate any element onto another element.">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+		<style>
+		* {
+			box-sizing: border-box;
+		}
+		html, body {
+			font-family: 'Open Sans', sans-serif;
+			background: #3F51B5;
+			color: white;
+			text-align: center;
+			margin: 0;
+		}
+		p {
+			font-size: 24px;
+			max-width: 770px;
+			margin: 0 auto 30px;
+			padding: 0 40px;
+		}
+		h1, h2 { font-weight: bold; }
+		h2 {
+			font-size: 40px;
+		}
+		a { color: #FFD200; }
+		a:hover { text-decoration: none; }
+		section {
+			padding: 30px 0;
+		}
+		.section--white {
+			background: white;
+			color: #555;
+		}
+		.disable-mouse {
+			pointer-events: none;
+		}
+		.main-title {
+			color: white;
+			font-size: 100px;
+		}
+		.btn, .tile {
+			display: inline-block;
+			text-decoration: none;
+			padding: 16px;
+			background: #EA006F;
+			color: white;
+			opacity: 0.85;
+			cursor: pointer;
+			transition: 0.25s ease;
+		}
+		.download-btn {
+			background: white;
+			color: #3F51B5;
+			font-size: 30px;
+		}
+		.btn--blue {
+			background: #4A90E2;
+		}
+		.tile {
+			width: 33.333%;
+			float: left;
+			height: 150px;
+		}
+		.tile-container {
+			overflow: hidden;
+		}
+		.btn:hover,
+		.tile:hover {
+			opacity: 1;
+		}
+		.tile:nth-child(2) { background: #4A90E2; }
+		.tile:nth-child(3) { background: #FFD200; }
+		.tile:nth-child(4) { background: #4CBB47; }
+		.tile:nth-child(5) { background: #362A6C; }
+		.tile:nth-child(6) { background: #4CBB47; }
+
+		.modal {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			padding: 40px;
+			background: #EA006F;
+			color: white;
+			z-index: 1;
+			visibility: hidden;
+			opacity: 0;
+			pointer-events: none;
+			transition: 200ms ease;
+		}
+
+		.modal-close-btn {
+			display: block;
+			position: absolute;
+			top: 0;
+			right: 0;
+			background: url(img/close.png) no-repeat center;
+			width: 32px;
+			height: 32px;
+			padding: 32px;
+			opacity: 0.8;
+			cursor: pointer;
+			transition: 0.3s ease;
+		}
+		.modal-close-btn:hover {
+			opacity: 1;
+		}
+		.modal--2 { background: #4A90E2; }
+		.modal--3 { background: #FFD200; }
+		.modal--4 { background: #4CBB47; }
+		.modal--5 { background: #362A6C; }
+		.modal.show {
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
+		}
+		.dialog {
+			background: #4A90E2;
+			min-width: 300px;
+			left: 50%;
+			right: auto;
+			top: 30%;
+			bottom: auto;
+			box-shadow: 0 0 0 3000px rgba(0,0,0,0.4);
+			transform: translateX(-50%);
+		}
+		.sidebar {
+			left: auto;
+			width: 300px;
+			background: #8BC34A;
+			transform: translateX(100%);
+			opacity: 1;
+			visibility: visible;
+		}
+		.sidebar.show {
+			transform: translateX(0);
+		}
+		.sidebar__block {
+			border-radius: 5px;
+			background: white;
+			opacity: 0.3;
+			margin-top: 32px;
+		}
+		.quote-box__bubble {
+			position: relative;
+			background: white;
+			padding: 16px;
+			color: #555;
+			border-radius: 5px;
+			max-width: 480px;
+			margin: 0 auto 20px;
+		}
+		.quote-box__bubble:after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			width: 0;
+			height: 0;
+			border: 10px solid transparent;
+			border-top-color: white;
+			border-top-width: 10px;
+		}
+
+		footer {
+			padding: 50px 0 20px;
+			opacity: 0.5;
+		}
+
+		.main-title {
+		  -webkit-animation: animation 600ms cubic-bezier(.71,1.7,.77,1.24) both;
+		  animation: animation 400ms cubic-bezier(.71,1.7,.77,1.24) both;
+		}
+		@-webkit-keyframes animation {
+		  0% { -webkit-transform: scale(0.7) translateY(-100px); opacity: 0; }
+		  100% { -webkit-transform: translateY(0); opacity: 1; }
+		}
+		@keyframes animation {
+		  0% { transform: scale(0.7) translateY(-100px); opacity: 0; }
+		  100% { transform: translateY(0); opacity: 1; }
+		}
+		</style>
+	</head>
+	<body>
+		<h1 class="main-title">cta.js</h1>
+		<p>cta.js or "Call to Animation" is a light-weight performant library to animate any element onto any other element on the page.</p>
+
+		<a href="https://github.com/chinchang/cta.js" title="Off to Github" class="btn  download-btn">Get started</a>
+
+		<section class="section--white" style="margin-top: 40px;">
+			<h2>What can I use it for?</h2>
+			<p>Navigation in tile based apps</p>
+			<div class="tile-container">
+				<div class="tile" data-cta-target=".js-modal-1"></div>
+				<div class="tile" data-cta-target=".js-modal-2"></div>
+				<div class="tile" data-cta-target=".js-modal-3"></div>
+				<div class="tile" data-cta-target=".js-modal-4"></div>
+				<div class="tile" data-cta-target=".js-modal-5" style="width: 16.666%"></div>
+				<div class="tile" data-cta-target=".js-modal-3"></div>
+				<div class="tile" data-cta-target=".js-modal-5" style="width: 16.666%"></div>
+			</div>
+		</section>
+
+		<section class="section--white">
+			<p>Opening modals on button clicks</p>
+			<div class="btn" data-cta-target=".js-dialog" style="background: #4A90E2">Click for awesomeness</div>
+		</section>
+
+		<section class="section--white">
+			<p>Opening sidebars</p>
+			<div class="btn" data-cta-target=".js-sidebar">Open the Sidebar</div>
+		</section>
+		<section class="section--white">
+			<p>And just about anything...</p>
+		</section>
+
+
+		<section>
+			<h2>And why do I use it?</h2>
+			<p>To improve your user experience by providing <strong>visual continuity</strong>.</p>
+			<div class="quote-box">
+				<div class="quote-box__bubble">Carefully choreographed motion design can effectively guide the user’s attention and focus through multiple steps of a process or procedure, avoid confusion when layouts change or elements are rearranged, and improve the overall beauty of the experience.</div>
+				<a href="http://www.google.co.in/design/spec/animation/meaningful-transitions.html">Google Material Design</a>
+			</div>
+		</section>
+
+		<div class="js-modal-1  modal  modal--1">
+			<span class="modal-close-btn"></span>
+			<h1>Hello there!</h1>
+			<p>This is modal 1.</p>
+		</div>
+		<div class="js-modal-2  modal  modal--2">
+			<span class="modal-close-btn"></span>
+			<h1>Share it if you like it</h1>
+			<br>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://kushagragour.in/lab/ctajs/" data-via="chinchang457" data-hashtags="animate,javascript">Tweet</a>
+		</div>
+		<div class="js-modal-3  modal  modal--3">
+			<span class="modal-close-btn"></span>
+			<h1>Customary cat!</h1>
+			<img src="img/cat.jpg" width="300" alt="">
+			<p>You found me :)</p>
+		</div>
+		<div class="js-modal-4  modal  modal--4">
+			<span class="modal-close-btn"></span>
+			<h1>Hello there!</h1>
+			<p>This is modal 4.</p>
+		</div>
+		<div class="js-modal-5  modal  modal--5">
+			<span class="modal-close-btn"></span>
+			<h1>Hello there!</h1>
+			<p>This is modal 5.</p>
+		</div>
+
+		<div class="js-dialog  modal  dialog" style="text-align: center;">
+			<span class="modal-close-btn"></span>
+			<h3>Do you think this is Awesome?</h3>
+			<br>
+			<a onclick="closeShowingModal(); return;" class="btn  btn--blue">Yes</a>
+			<a onclick="closeShowingModal(); return;" class="btn  btn--blue">No</a>
+
+		</div>
+
+		<div class="js-sidebar  modal sidebar">
+			<span class="modal-close-btn"></span>
+			<div class="sidebar__block" style="height:20%"></div>
+			<div class="sidebar__block" style="height:40%"></div>
+			<div class="sidebar__block" style="height:10%"></div>
+		</div>
+
+		<p style="text-align:center;">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://kushagragour.in/lab/ctajs/" data-via="chinchang457" data-hashtags="animate,javascript">Tweet</a>
+		</p>
+		<footer>
+			By <a href="https://twitter.com/chinchang457">Kushagra Gour</a> . <a href="https://github.com/chinchang/cta.js">Source</a> . Made with JavaScript in India.
+		</footer>
+
+		<a class="github-ribbon" href="https://github.com/chinchang/cta.js"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
+
+		<script src="src/cta.js"></script>
+		<script>
+		var closeFn;
+		function closeShowingModal() {
+			var showingModal = document.querySelector('.modal.show');
+			if (!showingModal) return;
+			showingModal.classList.remove('show');
+			document.body.classList.remove('disable-mouse');
+			if (closeFn) {
+				closeFn();
+				closeFn = null;
+			}
+		}
+		document.addEventListener('click', function (e) {
+			var target = e.target;
+			if (target.dataset.ctaTarget) {
+				closeFn = cta(target, document.querySelector(target.dataset.ctaTarget), function showModal(modal) {
+					modal.classList.add('show');
+					document.body.classList.add('disable-mouse');
+				});
+			}
+			else if (target.classList.contains('modal-close-btn')) {
+				closeShowingModal();
+			}
+		});
+		document.addEventListener('keyup', function (e) {
+			if (e.which === 27) {
+				closeShowingModal();
+			}
+		})
+		</script>
+		<script async="true" type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+	</body>
+</html>
