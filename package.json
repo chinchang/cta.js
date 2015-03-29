@@ -2,13 +2,14 @@
   "name": "cta",
   "title": "cta.js",
   "description": "A light-weight performant library to animate your 'action-to-effect' paths",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "http://kushagragour.in/lab/ctajs/",
   "author": {
     "name": "Kushagra Gour",
     "email": "chinchang457@gmail.com",
     "url": "http://kushagragour.in"
   },
+  "main": "dist/cta.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/chinchang/cta.js.git"
@@ -25,7 +26,9 @@
   "keywords": [
     "animation",
     "transition",
-    "ux"
+    "ux",
+    "javascript",
+    "library"
   ],
   "devDependencies": {
     "grunt-contrib-concat": "~0.5.1",

@@ -14,12 +14,12 @@ Installation
 **cta.js** is *just 1.2KB* minified & gzipped.
 
 ```
-bower install ctajs
+bower install cta
 ```
 *or*
 
 ```
-npm install ctajs
+npm install cta
 ```
 
 *or* simply [download from Github](https://github.com/chinchang/cta.js/archive/master.zip).
