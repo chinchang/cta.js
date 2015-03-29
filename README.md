@@ -1,4 +1,4 @@
-cta.js
+cta.js [![npm version](https://badge.fury.io/js/cta.svg)](http://badge.fury.io/js/cta)
 =====
 *A call to animate, your action-to-effect path*
 ***
