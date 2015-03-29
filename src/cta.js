@@ -1,8 +1,11 @@
 ;(function () {
 
+	// Only support chrome for now.
+	var isSupportedBrowser = /chrome/.test(navigator.userAgent.toLowerCase());
+
 	// Credits to angular-animate for the nice animation duration detection code.
 	// Detect proper transitionend/animationend event names.
-	var CSS_PREFIX = '', TRANSITION_PROP, TRANSITIONEND_EVENT, ANIMATION_PROP, ANIMATIONEND_EVENT;
+	var TRANSITION_PROP, ANIMATION_PROP;
 	var DURATION_KEY = 'Duration';
 	var PROPERTY_KEY = 'Property';
 	var DELAY_KEY = 'Delay';
@@ -10,21 +13,15 @@
 	var ONE_SECOND = 1000;
 
 	if (window.ontransitionend === undefined && window.onwebkittransitionend !== undefined) {
-		CSS_PREFIX = '-webkit-';
 		TRANSITION_PROP = 'WebkitTransition';
-		TRANSITIONEND_EVENT = 'webkitTransitionEnd transitionend';
 	} else {
 		TRANSITION_PROP = 'transition';
-		TRANSITIONEND_EVENT = 'transitionend';
 	}
 
 	if (window.onanimationend === undefined && window.onwebkitanimationend !== undefined) {
-		CSS_PREFIX = '-webkit-';
 		ANIMATION_PROP = 'WebkitAnimation';
-		ANIMATIONEND_EVENT = 'webkitAnimationEnd animationend';
 	} else {
 		ANIMATION_PROP = 'animation';
-		ANIMATIONEND_EVENT = 'animationend';
 	}
 
 	function parseMaxTime(str) {
@@ -79,6 +76,11 @@
 	}
 
 	function cta(trigger, target, options, callback) {
+		if (!isSupportedBrowser) {
+			callback && callback(target);
+			return;
+		}
+
 		var targetBackground,
 			triggerBackground,
 			targetBounds,
@@ -102,7 +104,6 @@
 		if (window.getComputedStyle(target).display === 'none') {
 			target.style.setProperty('display', 'block', 'important');
 		}
-		target.style.setProperty('transition', 'none', 'important');
 
 		// Calculate some property differences to animate.
 		targetBackground = window.getComputedStyle(target).background;
@@ -138,9 +139,6 @@
 
 		// We start animation on the next available frame.
 		requestAnimationFrame(function () {
-			// Simply doing `target.style.removeProperty('transition')` doesn't work because of vendor
-			// prefixes.
-			target.setAttribute('style', target.getAttribute('style').replace(/(-webkit-)?transition:.*?;/g, ''));
 			dummy.style.setProperty('background', targetBackground, 'important');
 
 			// Remove the reverse transforms to get the dummy transition back to its normal/final state.
@@ -164,6 +162,8 @@
 			cta(target, trigger, options, callback);
 		};
 	}
+
+	cta.isSupported = isSupportedBrowser;
 
 	// open to the world.
 	// commonjs
