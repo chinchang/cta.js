@@ -1,10 +1,11 @@
-cta.css
+cta.js
 =====
-*It a call to animate, anything to anything*
+*A call to animate, your action-to-effect path*
 ***
 
-cta.js or "Call to Animation" is a light-weight performant library to animate any element onto any other element on the page.
+cta.js or "Call to Animation" is a light-weight performant library to animate any element ("action") onto any other element ("effect") on the page.
 
+To see what you can do with this, checkout the demo:
 ### [Demo](http://kushagragour.in/lab/ctajs).
 
 Installation
@@ -24,7 +25,7 @@ npm install ctajs
 Usage
 -----
 
-In very basic form, you can animate an element with selector X to an element with selector Y:
+In very basic form, you can animate an element with selector X onto an element with selector Y:
 
 ```js
 var e1 = document.querySelector(X),
@@ -35,8 +36,8 @@ cta(e1, e2);
 Triggering a reverse animation;
 
 ```js
-var e1 = document.querySelector('#js-element-from'),
-	e2 = document.querySelector('#js-element-to');
+var e1 = document.querySelector('#js-source-element'),
+	e2 = document.querySelector('#js-target-element');
 var reverseAnimate = cta(e1, e2);
 
 // Reverse previous animation
@@ -46,8 +47,8 @@ reverseAnimate();
 Specify animation duration:
 
 ```js
-var e1 = document.querySelector('#js-element-from'),
-	e2 = document.querySelector('#js-element-to');
+var e1 = document.querySelector('#js-source-element'),
+	e2 = document.querySelector('#js-target-element');
 cta(e1, e2, {
 	duration: 0.3 // seconds
 });
@@ -67,16 +68,16 @@ More documentation coming up.
 Public API
 -----
 
-### cta(fromElement, toElement [, options] [, callback] )
+### cta(sourceElement, targetElement [, options] [, callback] )
 
-Animate an element `fromElement` onto `toElement`.
+Animate an element `sourceElement` onto `targetElement`.
 
-* `fromElement` - DOM Element which is the starting point of animation.
-* `toElement` - DOM Element which is the end point of animation.
+* `sourceElement` - DOM Element which is the starting point of animation.
+* `targetElement` - DOM Element which is the end point of animation.
 * `options` - A map of additional options to control the animation behaviour.
 	* `duration` - Duration (in seconds) of animation. Default is `0.3` seconds.
-	* `targetShowDuration` - Duration (in seconds) of `toElement` to become visible, if hidden initially. The library will automatically try to figure this out from the element's computed styles. Default is `0` seconds.
-	* `relativeToWindow` - Set to true if you want animation to happen relative to window (with fixed positioned elements). Default is relative to document (absolute positioned).
+	* `targetShowDuration` - Duration (in seconds) of `targetElement` to become visible, if hidden initially. The library will automatically try to figure this out from the element's computed styles. Default is `0` seconds.
+	* `relativeToWindow` - Set to true if your target element is fixed positioned in the window. Default is relative to document (works good with normal elements).
 * `callback` - Optional callback to execute after animation completes.
 
 

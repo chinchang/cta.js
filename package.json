@@ -1,7 +1,7 @@
 {
   "name": "cta",
   "title": "cta.js",
-  "description": "Animate any element onto another element.",
+  "description": "A light-weight performant library to animate your 'action-to-effect' paths",
   "version": "0.0.1",
   "homepage": "http://kushagragour.in/lab/ctajs/",
   "author": {
