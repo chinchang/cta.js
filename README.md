@@ -6,10 +6,12 @@ cta.js
 cta.js or "Call to Animation" is a light-weight performant library to animate any element ("action") onto any other element ("effect") on the page.
 
 To see what you can do with this, checkout the demo:
-### [Demo](http://kushagragour.in/lab/ctajs).
+### [DEMO](http://kushagragour.in/lab/ctajs)
 
 Installation
 -----
+
+**cta.js** is *just 1.2KB* minified & gzipped.
 
 ```
 bower install ctajs
@@ -20,7 +22,9 @@ bower install ctajs
 npm install ctajs
 ```
 
-*or* simply [download from Github](https://github.com/chinchang/cta.js/blob/master/cta.min.js).
+*or* simply [download from Github](https://github.com/chinchang/cta.js/archive/master.zip).
+
+**Note**: **cta.js** supports AMD and commonJS module pattern out of the box.
 
 Usage
 -----
@@ -40,7 +44,7 @@ var e1 = document.querySelector('#js-source-element'),
 	e2 = document.querySelector('#js-target-element');
 var reverseAnimate = cta(e1, e2);
 
-// Reverse previous animation
+// Reverse previous animation. `options` and `callback` can be passed to this function too.
 reverseAnimate();
 ```
 
@@ -84,7 +88,9 @@ Animate an element `sourceElement` onto `targetElement`.
 Browser Support
 -----
 
-**cta.js** works on Google Chrome only currently. Firefox support is under development.
+**cta.js** works only on Google Chrome currently. Other modern browsers are to be supported next.
+
+For all non-supported browsers, the library does nothing and fallbacks to normal behavior. So you don't need to handle anything explicitly for non-supported browsers in your project while using **cta.js**.
 
 Contributing
 -----
@@ -107,4 +113,4 @@ Licensed under the [MIT license](http://opensource.org/licenses/MIT).
 Credits
 -----
 
-Paul Lewis - for this awesome performance tip on scaling elements.
+Paul Lewis - for his [awesome performance tip](http://aerotwist.com/blog/flip-your-animations/) on scaling elements.
