@@ -14,22 +14,30 @@ module.exports = function(grunt) {
 		},
 
 		uglify: {
-			options: {
-				// the banner is inserted at the top of the output
-				banner: "<%= meta.banner %>"
-		 	},
 			dist: {
 				files: {
-					'dist/<%= pkg.name %>.min.js': [ '<%= pkg.name %>.js' ]
+					'dist/<%= pkg.name %>.min.js': [ 'src/<%= pkg.name %>.js' ]
 				}
 			}
 		},
+		concat: {
+			options: {
+				banner: '<%= meta.banner %>'
+			},
+			lib: {
+				src: ['src/<%= pkg.name %>.js'],
+				dest: 'dist/<%= pkg.name %>.js'
+			},
+			minLib: {
+				src: ['dist/<%= pkg.name %>.min.js'],
+				dest: 'dist/<%= pkg.name %>.min.js'
+			}
+		}
 	});
 
 	// Dependencies
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 
-	// Default task.
-	grunt.registerTask('default', 'uglify');
-	// grunt.registerTask('deploy', ['uglify', 'concat']);
+	grunt.registerTask('default', ['uglify', 'concat']);
 };
