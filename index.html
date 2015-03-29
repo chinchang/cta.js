@@ -22,9 +22,12 @@
 			text-align: center;
 			margin: 0;
 		}
+		p, .content-wrap {
+			max-width: 770px;
+			margin: 0 auto;
+		}
 		p {
 			font-size: 24px;
-			max-width: 770px;
 			margin: 0 auto 30px;
 			padding: 0 40px;
 		}
@@ -235,7 +238,11 @@
 		<section class="section--white">
 			<h2>Browser Support</h2>
 
-			cta.js currently works only in Google Chrome browser. Firefox support is in development.
+			<div class="content-wrap">
+			cta.js currently works only in Google Chrome browser. Other modern browsers are to be supported next.
+			<br><br>
+			For all non-supported browsers, the library does nothing and fallbacks to normal behavior without any explicit handling in your code.
+			</div>
 		</section>
 
 		<div class="js-modal-1  modal  modal--1">

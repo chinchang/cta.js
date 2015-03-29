@@ -90,7 +90,7 @@ Browser Support
 
 **cta.js** works only on Google Chrome currently. Other modern browsers are to be supported next.
 
-For all non-supported browsers, the library does nothing and fallbacks to normal behavior. So you don't need to handle anything explicitly for non-supported browsers in your project while using **cta.js**.
+For all non-supported browsers, the library does nothing and fallbacks to normal behavior without any explicit handling in your code.
 
 Contributing
 -----
