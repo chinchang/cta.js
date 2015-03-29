@@ -160,8 +160,8 @@
 		});
 
 		// Return a reverse animation function for the called animation.
-		return function () {
-			cta(target, trigger);
+		return function (options, callback) {
+			cta(target, trigger, options, callback);
 		};
 	}
 

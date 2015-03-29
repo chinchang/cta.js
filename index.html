@@ -313,7 +313,7 @@
 		document.addEventListener('click', function (e) {
 			var target = e.target;
 			if (target.dataset.ctaTarget) {
-				closeFn = cta(target, document.querySelector(target.dataset.ctaTarget), function showModal(modal) {
+				closeFn = cta(target, document.querySelector(target.dataset.ctaTarget), { relativeToWindow: true }, function showModal(modal) {
 					modal.classList.add('show');
 					document.body.classList.add('disable-mouse');
 				});
