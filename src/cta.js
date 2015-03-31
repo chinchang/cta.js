@@ -73,11 +73,13 @@
 
 		// Whether to position the dummy animating element relative to window (fixed positioned) or not.
 		relativeToWindow: false
-	}
+	};
 
 	function cta(trigger, target, options, callback) {
 		if (!isSupportedBrowser) {
-			callback && callback(target);
+			if (callback) {
+				callback(target);
+			}
 			return;
 		}
 
@@ -149,7 +151,9 @@
 		dummy.addEventListener('transitionend', function transitionEndCallback() {
 			dummy.removeEventListener('transitionend', transitionEndCallback);
 
-			callback && callback(target);
+			if (callback) {
+				callback(target);
+			}
 			// Animate the dummy element to zero opacity while the target is getting rendered.
 			dummy.style.transitionDuration = (options.targetShowDuration + extraTransitionDuration) + 's';
 			dummy.style.opacity = 0;
