@@ -73,7 +73,7 @@
 
 		// Whether to position the dummy animating element relative to window (fixed positioned) or not.
 		relativeToWindow: false
-	};
+	}
 
 	function cta(trigger, target, options, callback) {
 		if (!isSupportedBrowser) {
