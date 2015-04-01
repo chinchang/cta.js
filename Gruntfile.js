@@ -12,13 +12,7 @@ module.exports = function(grunt) {
 				'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
 				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n\n'
 		},
-        jshint: {
-          files: ['Gruntfile.js', 'src/<%= pkg.name %>.js'],
-          options: {
-              browser: true,
-              devel: true
-          }
-        },
+
 		uglify: {
 			dist: {
 				files: {
@@ -42,14 +36,8 @@ module.exports = function(grunt) {
 	});
 
 	// Dependencies
-    grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-concat');
-    
-    grunt.registerTask('build', [  
-        'jshint',
-        'uglify', 
-        'concat'
-    ]);
-	grunt.registerTask('default', 'build');
+
+	grunt.registerTask('default', ['uglify', 'concat']);
 };
