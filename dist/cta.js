@@ -1,11 +1,15 @@
-/*! cta.js - v0.2.0 - 2015-04-03
+/*! cta.js - v0.3.0 - 2015-04-04
 * http://kushagragour.in/lab/ctajs/
 * Copyright (c) 2015 Kushagra Gour; Licensed MIT */
 
 ;(function () {
 
 	// Only support chrome for now.
-	var isSupportedBrowser = /chrome/.test(navigator.userAgent.toLowerCase());
+	var isSupportedBrowser = (function () {
+		// Firefox doesn't have `ontransitionend` on window. Hence we check for `transition`
+		// key in style object to check for unprefixed transition support.
+		return window.ontransitionend !== undefined || document.documentElement.style.transition !== undefined;
+	})();
 
 	// Credits to angular-animate for the nice animation duration detection code.
 	// Detect proper transitionend/animationend event names.
@@ -66,6 +70,12 @@
 		return animationDuration || transitionDuration;
 	}
 
+	function getBackgroundStyle(element) {
+		var computedStyle = window.getComputedStyle(element);
+		// Need to fallback to `backgroundColor` as `background` return nothing in Firefox.
+		return computedStyle.background || computedStyle.backgroundColor;
+	}
+
 	var defaults = {
 		duration: 0.3, // Duration for the animation to happen (seconds)
 
@@ -112,8 +122,8 @@
 		}
 
 		// Calculate some property differences to animate.
-		targetBackground = window.getComputedStyle(target).background;
-		triggerBackground = window.getComputedStyle(trigger).background;
+		targetBackground = getBackgroundStyle(target);
+		triggerBackground = getBackgroundStyle(trigger);
 		targetBounds = target.getBoundingClientRect();
 		triggerBounds = trigger.getBoundingClientRect();
 		scaleXRatio = triggerBounds.width / targetBounds.width;
@@ -128,6 +138,7 @@
 		dummy = document.createElement('div');
 		dummy.style.setProperty('pointer-events', 'none', 'important');
 		dummy.style.setProperty('position', (options.relativeToWindow ? 'fixed' : 'absolute'), 'important');
+		dummy.style.setProperty('-webkit-transform-origin', 'top left', 'important');
 		dummy.style.setProperty('transform-origin', 'top left', 'important');
 		dummy.style.setProperty('transition', options.duration + 's ease');
 
@@ -140,16 +151,18 @@
 
 		// Apply a reverse transform to bring back dummy element to the dimensions of the trigger/starting element.
 		// Credits: This technique is inspired by Paul Lewis: http://aerotwist.com/blog/flip-your-animations/ He is amazing!
+		dummy.style.setProperty('-webkit-transform', 'translate(' + diffX + 'px, ' + diffY + 'px) scale(' + scaleXRatio + ', ' + scaleYRatio + ')', 'important');
 		dummy.style.setProperty('transform', 'translate(' + diffX + 'px, ' + diffY + 'px) scale(' + scaleXRatio + ', ' + scaleYRatio + ')', 'important');
 		document.body.appendChild(dummy);
 
 		// Trigger a layout to let styles apply.
 		var justReadIt = dummy.offsetTop;
 
-		// We reverting everything to lets things animate.
+		// Change properties to let things animate.
 		dummy.style.setProperty('background', targetBackground, 'important');
 
 		// Remove the reverse transforms to get the dummy transition back to its normal/final state.
+		dummy.style.removeProperty('-webkit-transform');
 		dummy.style.removeProperty('transform');
 
 		dummy.addEventListener('transitionend', function transitionEndCallback() {
