@@ -88,7 +88,7 @@ Animate an element `sourceElement` onto `targetElement`.
 Browser Support
 -----
 
-**cta.js** works only on Google Chrome currently. Other modern browsers are to be supported next.
+**cta.js** works best on latest versions of Google Chrome, Firefox and Safari.
 
 For all non-supported browsers, the library does nothing and fallbacks to normal behavior without any explicit handling in your code.
 
