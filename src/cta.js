@@ -124,6 +124,7 @@
 		dummy = document.createElement('div');
 		dummy.style.setProperty('pointer-events', 'none', 'important');
 		dummy.style.setProperty('position', (options.relativeToWindow ? 'fixed' : 'absolute'), 'important');
+		dummy.style.setProperty('-webkit-transform-origin', 'top left', 'important');
 		dummy.style.setProperty('transform-origin', 'top left', 'important');
 		dummy.style.setProperty('transition', options.duration + 's ease');
 
@@ -136,6 +137,7 @@
 
 		// Apply a reverse transform to bring back dummy element to the dimensions of the trigger/starting element.
 		// Credits: This technique is inspired by Paul Lewis: http://aerotwist.com/blog/flip-your-animations/ He is amazing!
+		dummy.style.setProperty('-webkit-transform', 'translate(' + diffX + 'px, ' + diffY + 'px) scale(' + scaleXRatio + ', ' + scaleYRatio + ')', 'important');
 		dummy.style.setProperty('transform', 'translate(' + diffX + 'px, ' + diffY + 'px) scale(' + scaleXRatio + ', ' + scaleYRatio + ')', 'important');
 		document.body.appendChild(dummy);
 
@@ -146,6 +148,7 @@
 		dummy.style.setProperty('background', targetBackground, 'important');
 
 		// Remove the reverse transforms to get the dummy transition back to its normal/final state.
+		dummy.style.removeProperty('-webkit-transform');
 		dummy.style.removeProperty('transform');
 
 		dummy.addEventListener('transitionend', function transitionEndCallback() {
