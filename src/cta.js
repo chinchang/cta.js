@@ -1,7 +1,11 @@
 ;(function () {
 
 	// Only support chrome for now.
-	var isSupportedBrowser = /chrome/.test(navigator.userAgent.toLowerCase());
+	var isSupportedBrowser = (function () {
+		// Firefox doesn't have `ontransitionend` on window. Hence we check for `transition`
+		// key in style object to check for unprefixed transition support.
+		return window.ontransitionend !== undefined || document.documentElement.style.transition !== undefined;
+	})();
 
 	// Credits to angular-animate for the nice animation duration detection code.
 	// Detect proper transitionend/animationend event names.
@@ -62,6 +66,12 @@
 		return animationDuration || transitionDuration;
 	}
 
+	function getBackgroundStyle(element) {
+		var computedStyle = window.getComputedStyle(element);
+		// Need to fallback to `backgroundColor` as `background` return nothing in Firefox.
+		return computedStyle.background || computedStyle.backgroundColor;
+	}
+
 	var defaults = {
 		duration: 0.3, // Duration for the animation to happen (seconds)
 
@@ -108,8 +118,8 @@
 		}
 
 		// Calculate some property differences to animate.
-		targetBackground = window.getComputedStyle(target).background;
-		triggerBackground = window.getComputedStyle(trigger).background;
+		targetBackground = getBackgroundStyle(target);
+		triggerBackground = getBackgroundStyle(trigger);
 		targetBounds = target.getBoundingClientRect();
 		triggerBounds = trigger.getBoundingClientRect();
 		scaleXRatio = triggerBounds.width / targetBounds.width;
@@ -144,7 +154,7 @@
 		// Trigger a layout to let styles apply.
 		var justReadIt = dummy.offsetTop;
 
-		// We reverting everything to lets things animate.
+		// Change properties to let things animate.
 		dummy.style.setProperty('background', targetBackground, 'important');
 
 		// Remove the reverse transforms to get the dummy transition back to its normal/final state.
