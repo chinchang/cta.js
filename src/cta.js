@@ -137,24 +137,25 @@
 		dummy.style.setProperty('transform', 'translate(' + diffX + 'px, ' + diffY + 'px) scale(' + scaleXRatio + ', ' + scaleYRatio + ')', 'important');
 		document.body.appendChild(dummy);
 
-		// We start animation on the next available frame.
-		requestAnimationFrame(function () {
-			dummy.style.setProperty('background', targetBackground, 'important');
+		// Trigger a layout to let styles apply.
+		var justReadIt = dummy.offsetTop;
 
-			// Remove the reverse transforms to get the dummy transition back to its normal/final state.
-			dummy.style.removeProperty('transform');
+		// We reverting everything to lets things animate.
+		dummy.style.setProperty('background', targetBackground, 'important');
 
-			dummy.addEventListener('transitionend', function transitionEndCallback() {
-				dummy.removeEventListener('transitionend', transitionEndCallback);
+		// Remove the reverse transforms to get the dummy transition back to its normal/final state.
+		dummy.style.removeProperty('transform');
 
-				callback && callback(target);
-				// Animate the dummy element to zero opacity while the target is getting rendered.
-				dummy.style.transitionDuration = (options.targetShowDuration + extraTransitionDuration) + 's';
-				dummy.style.opacity = 0;
-				setTimeout(function () {
-					dummy.parentNode.removeChild(dummy);
-				}, (options.targetShowDuration + extraTransitionDuration) * 1000);
-			});
+		dummy.addEventListener('transitionend', function transitionEndCallback() {
+			dummy.removeEventListener('transitionend', transitionEndCallback);
+
+			callback && callback(target);
+			// Animate the dummy element to zero opacity while the target is getting rendered.
+			dummy.style.transitionDuration = (options.targetShowDuration + extraTransitionDuration) + 's';
+			dummy.style.opacity = 0;
+			setTimeout(function () {
+				dummy.parentNode.removeChild(dummy);
+			}, (options.targetShowDuration + extraTransitionDuration) * 1000);
 		});
 
 		// Return a reverse animation function for the called animation.
