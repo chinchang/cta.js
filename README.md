@@ -13,16 +13,9 @@ Installation
 
 **cta.js** is *just 1.2KB* minified & gzipped.
 
-```
-bower install cta
-```
-*or*
-
-```
-npm install cta
-```
-
-*or* simply [download from Github](https://github.com/chinchang/cta.js/archive/master.zip).
+- Bower: `bower install cta`
+- NPM: `npm install cta`
+- [Download zip](https://github.com/chinchang/cta.js/archive/master.zip).
 
 **Note**: **cta.js** supports AMD and commonJS module pattern out of the box.
 
