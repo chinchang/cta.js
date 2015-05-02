@@ -190,7 +190,9 @@
 	}
 	// AMD module
 	else if( typeof define === 'function' && define.amd ) {
-		define([], cta);
+		define(function () {
+			return cta;
+		});
 	}
 	// Browser global
 	else {
