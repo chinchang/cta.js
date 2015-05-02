@@ -2,7 +2,7 @@
   "name": "cta",
   "title": "cta.js",
   "description": "A light-weight performant library to animate your 'action-to-effect' paths",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "homepage": "http://kushagragour.in/lab/ctajs/",
   "author": {
     "name": "Kushagra Gour",
