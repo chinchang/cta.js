@@ -1,4 +1,4 @@
-/*! cta.js - v0.3.0 - 2015-04-04
+/*! cta.js - v0.3.1 - 2015-05-02
 * http://kushagragour.in/lab/ctajs/
 * Copyright (c) 2015 Kushagra Gour; Licensed MIT */
 
@@ -194,7 +194,9 @@
 	}
 	// AMD module
 	else if( typeof define === 'function' && define.amd ) {
-		define([], cta);
+		define(function () {
+			return cta;
+		});
 	}
 	// Browser global
 	else {
