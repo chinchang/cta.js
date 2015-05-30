@@ -322,7 +322,7 @@
 			if (!showingModal) return;
 			showingModal.classList.remove('show');
 			document.body.classList.remove('disable-mouse');
-      document.body.classList.remove('disable-scroll');
+			document.body.classList.remove('disable-scroll');
 			if (closeFn) {
 				closeFn();
 				closeFn = null;
@@ -334,9 +334,9 @@
 				closeFn = cta(target, document.querySelector(target.dataset.ctaTarget), { relativeToWindow: true }, function showModal(modal) {
 					modal.classList.add('show');
 					document.body.classList.add('disable-mouse');
-          if(target.dataset.disableScroll){
-            document.body.classList.add('disable-scroll');
-          }
+					if(target.dataset.disableScroll){
+						document.body.classList.add('disable-scroll');
+					}
 				});
 			}
 			else if (target.classList.contains('modal-close-btn')) {
