@@ -47,6 +47,10 @@
 		.disable-mouse {
 			pointer-events: none;
 		}
+		body.disable-scroll {
+			overflow: hidden;
+		      	height: 100%;
+		}
 		.main-title {
 			color: white;
 			font-size: 100px;
@@ -100,7 +104,8 @@
 			visibility: hidden;
 			opacity: 0;
 			pointer-events: none;
-			transition: 200ms ease;
+                	transition: 200ms ease;
+        		overflow: auto;
 		}
 
 		.modal-close-btn {
@@ -202,19 +207,19 @@
 			<p>Navigation in tile based apps</p>
 			<small>Click any tile below</small>
 			<div class="tile-container">
-				<div class="tile" data-cta-target=".js-modal-1"></div>
-				<div class="tile" data-cta-target=".js-modal-2"></div>
-				<div class="tile" data-cta-target=".js-modal-3"></div>
-				<div class="tile" data-cta-target=".js-modal-4"></div>
-				<div class="tile" data-cta-target=".js-modal-5" style="width: 16.666%"></div>
-				<div class="tile" data-cta-target=".js-modal-3"></div>
-				<div class="tile" data-cta-target=".js-modal-5" style="width: 16.666%"></div>
+				<div class="tile" data-cta-target=".js-modal-1" data-disable-scroll=true></div>
+				<div class="tile" data-cta-target=".js-modal-2" data-disable-scroll=true></div>
+				<div class="tile" data-cta-target=".js-modal-3" data-disable-scroll=true></div>
+				<div class="tile" data-cta-target=".js-modal-4" data-disable-scroll=true></div>
+				<div class="tile" data-cta-target=".js-modal-5" style="width: 16.666%" data-disable-scroll=true></div>
+				<div class="tile" data-cta-target=".js-modal-3" data-disable-scroll=true></div>
+				<div class="tile" data-cta-target=".js-modal-5" style="width: 16.666%" data-disable-scroll=true></div>
 			</div>
 		</section>
 
 		<section class="section--white">
 			<p>Opening modals on button clicks</p>
-			<div class="btn" data-cta-target=".js-dialog" style="background: #4A90E2">Click for awesomeness</div>
+			<div class="btn" data-cta-target=".js-dialog" data-disable-scroll=true style="background: #4A90E2">Click for awesomeness</div>
 		</section>
 
 		<section class="section--white">
@@ -317,6 +322,7 @@
 			if (!showingModal) return;
 			showingModal.classList.remove('show');
 			document.body.classList.remove('disable-mouse');
+			document.body.classList.remove('disable-scroll');
 			if (closeFn) {
 				closeFn();
 				closeFn = null;
@@ -328,6 +334,9 @@
 				closeFn = cta(target, document.querySelector(target.dataset.ctaTarget), { relativeToWindow: true }, function showModal(modal) {
 					modal.classList.add('show');
 					document.body.classList.add('disable-mouse');
+					if(target.dataset.disableScroll){
+						document.body.classList.add('disable-scroll');
+					}
 				});
 			}
 			else if (target.classList.contains('modal-close-btn')) {
