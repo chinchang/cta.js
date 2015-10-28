@@ -74,6 +74,7 @@ Animate an element `sourceElement` onto `targetElement`.
 * `options` - A map of additional options to control the animation behaviour.
 	* `duration` - Duration (in seconds) of animation. Default is `0.3` seconds.
 	* `targetShowDuration` - Duration (in seconds) of `targetElement` to become visible, if hidden initially. The library will automatically try to figure this out from the element's computed styles. Default is `0` seconds.
+	* `extraTransitionDuration` - Extra duration (in seconds) of `targetElement` to provide visual continuity between the animation and the rendering of the `targetElement`. Default is `1` second.
 	* `relativeToWindow` - Set to true if your target element is fixed positioned in the window. Default is relative to document (works good with normal elements).
 * `callback` - Optional callback to execute after animation completes.
 
