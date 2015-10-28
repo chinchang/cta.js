@@ -97,8 +97,7 @@
 			triggerBackground,
 			targetBounds,
 			triggerBounds,
-			dummy,
-			extraTransitionDuration = 1;
+			dummy;
 
 		// Support optional arguments
 		if (typeof options === 'function') {
@@ -109,6 +108,7 @@
 		options.duration = options.duration || defaults.duration;
 		options.targetShowDuration = options.targetShowDuration || getAnimationTime(target) || defaults.targetShowDuration;
 		options.relativeToWindow = options.relativeToWindow || defaults.relativeToWindow;
+		options.extraTransitionDuration = options.extraTransitionDuration || defaults.extraTransitionDuration;
 
 		// Set some properties to make the target visible so we can get its dimensions.
 		// Set `display` to `block` only when its already hidden. Otherwise changing an already visible
@@ -168,11 +168,11 @@
 				callback(target);
 			}
 			// Animate the dummy element to zero opacity while the target is getting rendered.
-			dummy.style.transitionDuration = (options.targetShowDuration + extraTransitionDuration) + 's';
+			dummy.style.transitionDuration = (options.targetShowDuration + options.extraTransitionDuration) + 's';
 			dummy.style.opacity = 0;
 			setTimeout(function () {
 				dummy.parentNode.removeChild(dummy);
-			}, (options.targetShowDuration + extraTransitionDuration) * 1000);
+			}, (options.targetShowDuration + options.extraTransitionDuration) * 1000);
 		});
 
 		// Return a reverse animation function for the called animation.
