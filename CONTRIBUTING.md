@@ -2,7 +2,7 @@
 
 #Setup
 1. [Fork **cta.js**](https://help.github.com/articles/fork-a-repo) and clone it on your system.
-2. Create a new branch out off `dev` for your fix/feature. `git checkout new-feature dev`
+2. Create a new branch out off `master` for your fix/feature. `git checkout new-feature master`
 
 #Things to remember
 
