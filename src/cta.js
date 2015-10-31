@@ -86,6 +86,12 @@
 	};
 
 	function cta(trigger, target, options, callback) {
+		// Support optional arguments
+		if (typeof options === 'function') {
+			callback = options;
+			options = {};
+		}
+
 		if (!isSupportedBrowser) {
 			if (callback) {
 				callback(target);
@@ -100,11 +106,6 @@
 			dummy,
 			extraTransitionDuration = 1;
 
-		// Support optional arguments
-		if (typeof options === 'function') {
-			callback = options;
-			options = {};
-		}
 		options = options || {};
 		options.duration = options.duration || defaults.duration;
 		options.targetShowDuration = options.targetShowDuration || getAnimationTime(target) || defaults.targetShowDuration;
