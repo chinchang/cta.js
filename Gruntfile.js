@@ -42,13 +42,11 @@ module.exports = function(grunt) {
 	});
 
 	// Dependencies
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-concat');
+	require('jit-grunt')(grunt);
 
 	grunt.registerTask('build',[
 		'jshint',
-		'uglify', 
+		'uglify',
 		'concat'
 	]);
 	grunt.registerTask('default','build');
