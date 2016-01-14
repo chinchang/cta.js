@@ -29,6 +29,7 @@ var e1 = document.querySelector(X),
 	e2 = document.querySelector(Y);
 cta(e1, e2);
 ```
+![animation](http://i.imgur.com/trVHJE1.gif)
 
 Triggering a reverse animation:
 
@@ -40,6 +41,7 @@ var reverseAnimate = cta(e1, e2);
 // Reverse previous animation. `options` and `callback` can be passed to this function too.
 reverseAnimate();
 ```
+![animation](http://i.imgur.com/yMeA6mx.gif)
 
 Specify animation duration:
 
