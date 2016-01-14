@@ -1,6 +1,5 @@
 {
 	"name": "cta",
-	"main": "cta.min.js",
 	"author": "Kushagra Gour",
 	"main": "dist/cta.min.js",
 	"ignore": [
