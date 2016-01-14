@@ -22,7 +22,7 @@ Installation
 Usage
 -----
 
-In very basic form, you can animate an element with selector X onto an element with selector Y:
+In its basic form, you can animate an element with selector X onto an element with selector Y:
 
 ```js
 var e1 = document.querySelector(X),
@@ -30,7 +30,7 @@ var e1 = document.querySelector(X),
 cta(e1, e2);
 ```
 
-Triggering a reverse animation;
+Triggering a reverse animation:
 
 ```js
 var e1 = document.querySelector('#js-source-element'),
