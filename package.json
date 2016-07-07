@@ -17,12 +17,7 @@
   "bugs": {
     "url": "https://github.com/chinchang/cta.js/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/chinchang/cta.js/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "keywords": [
     "animation",
     "transition",
