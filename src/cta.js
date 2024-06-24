@@ -92,36 +92,51 @@
 			options = {};
 		}
 
-		if (!isSupportedBrowser) {
-			if (callback) {
-				callback(target);
-			}
-			return;
-		}
-
-		var targetBackground,
+		var onOpenTarget,
+			onCloseTarget,
+			targetBackground,
 			triggerBackground,
 			targetBounds,
 			triggerBounds,
 			dummy;
 
+		if (Array.isArray(target)) {
+			onOpenTarget = target[0];
+			onCloseTarget = target[1] ? target[1] : trigger;
+		} else {
+			onOpenTarget = target;
+			onCloseTarget = trigger;
+		}
+
+		if (typeof onOpenTarget === 'function') {
+				onOpenTarget = onOpenTarget();
+			}
+
+		// If it's an old browser we invoke the callback and then return
+		if (!isSupportedBrowser) {
+			if (callback) {
+				callback(onOpenTarget);
+			}
+			return;
+		}
+
 		options = options || {};
 		options.duration = options.duration || defaults.duration;
-		options.targetShowDuration = options.targetShowDuration || getAnimationTime(target) || defaults.targetShowDuration;
+		options.targetShowDuration = options.targetShowDuration || getAnimationTime(onOpenTarget) || defaults.targetShowDuration;
 		options.relativeToWindow = options.relativeToWindow || defaults.relativeToWindow;
 		options.extraTransitionDuration = options.extraTransitionDuration || defaults.extraTransitionDuration;
 
 		// Set some properties to make the target visible so we can get its dimensions.
 		// Set `display` to `block` only when its already hidden. Otherwise changing an already visible
 		// element's `display` property can lead to its position getting changed.
-		if (window.getComputedStyle(target).display === 'none') {
-			target.style.setProperty('display', 'block', 'important');
+		if (window.getComputedStyle(onOpenTarget).display === 'none') {
+			onOpenTarget.style.setProperty('display', 'block', 'important');
 		}
 
 		// Calculate some property differences to animate.
-		targetBackground = getBackgroundStyle(target);
+		targetBackground = getBackgroundStyle(onOpenTarget);
 		triggerBackground = getBackgroundStyle(trigger);
-		targetBounds = target.getBoundingClientRect();
+		targetBounds = onOpenTarget.getBoundingClientRect();
 		triggerBounds = trigger.getBoundingClientRect();
 		scaleXRatio = triggerBounds.width / targetBounds.width;
 		scaleYRatio = triggerBounds.height / targetBounds.height;
@@ -129,7 +144,7 @@
 		diffY = triggerBounds.top - targetBounds.top;
 
 		// Remove the props we put earlier.
-		target.style.removeProperty('display');
+		onOpenTarget.style.removeProperty('display');
 
 		// Create a dummy element for transition.
 		dummy = document.createElement('div');
@@ -166,7 +181,7 @@
 			dummy.removeEventListener('transitionend', transitionEndCallback);
 
 			if (callback) {
-				callback(target);
+				callback(onOpenTarget);
 			}
 			// Animate the dummy element to zero opacity while the target is getting rendered.
 			dummy.style.transitionDuration = (options.targetShowDuration + options.extraTransitionDuration) + 's';
@@ -178,7 +193,7 @@
 
 		// Return a reverse animation function for the called animation.
 		return function (options, callback) {
-			cta(target, trigger, options, callback);
+			cta(onOpenTarget, onCloseTarget, options, callback);
 		};
 	}
 
